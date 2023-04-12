@@ -1,0 +1,33 @@
+{% extends 'movie_app/base.html' %}
+{% load static %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/reg_user.css' %}">
+{% endblock %}
+{% block title %} Регистрация {% endblock %}
+
+{% block content %}
+<div class='bold-line'></div>
+  <div class='window'>
+    <div class='overlay'></div>
+    <div class='content'>
+      <div class='welcome'>Приветствую!</div>
+      <div class='subtitle'>Создание учетной записи</div>
+      <div class='input-fields'>
+          <form   method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.errors %}
+            <div class="error">{{ field.label_tag }} {{ field.errors }}</div>
+            {{ field }}
+            {% else %}
+            {{ field.label_tag }}
+               {{ field }}
+            {% endif %}
+              {% endfor %}
+      </div>
+      <div class='spacing'>or continue with <span class='highlight'>VK</span></div>
+      <div><button class='ghost-round full-width' type="submit">Создать учетную запись</button></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

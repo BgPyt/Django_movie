@@ -1,0 +1,28 @@
+{% extends 'movie_app/base.html' %}
+{% load static %}
+{% block static %}
+{% load my_filter %}
+<link rel="stylesheet" href="{% static 'css/all_movies.css' %}">
+{% endblock %}
+{% block title %} Все фильмы {% endblock %}
+
+{% block content %}
+    <h2> {{ filter }} </h2>
+    <ul class="lists_movie">
+        {% for movie in movies %}
+           <div class="one_movie">
+        <li class="name_img"><a class="name_movie" href="{{ movie.get_url }}">{{ movie.name}}</a> <a class="s" href="{{ movie.get_url }}">
+            <div class="image" style="background-image: url('/{{ movie.image}}')">
+                <span class="rat {% if movie.rating < 50 %} bad_rat {% elif 50 < movie.rating and movie.rating < 80  %} medium_rat
+            {% else %} good_rat {% endif %}">{{ movie.rating|float_rating}}</span></div></a></li>
+            </div>
+        {% endfor %}
+    </ul>
+
+{% if movies|length > 8 %}
+ <nav class="navpaginate">
+    <ul class="dul">
+{% include 'includes/paginate_all.html' %}
+    </ul>
+{% endif %}
+{% endblock %}

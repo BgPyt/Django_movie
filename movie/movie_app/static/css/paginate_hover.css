@@ -1,0 +1,7 @@
+nav .last_first:hover {
+background-color: hsla(0, 0%, 31%, 0.8);
+}
+
+nav .paginate:hover {
+background-color: hsla(0, 0%, 31%, 0.8);
+}

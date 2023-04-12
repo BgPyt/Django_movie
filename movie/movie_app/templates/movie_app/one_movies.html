@@ -1,0 +1,69 @@
+{% extends 'movie_app/base.html' %}
+{% load embed_video_tags %}
+{% load static %}
+{% block title %} Информация о фильме - {{ movie.name }} {% endblock %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/one_movie.css' %}">
+{% load my_filter %}
+{% endblock %}
+{% block content %}
+
+<div class="root_inf">
+    <div class="rootblock">
+        <img class="img_one_movie " src="/{{ movie.image }}">
+        <div class="inf">
+            <h3 class="text_title">{{ movie.name }}({{ movie.year.year}})</h3>
+            <h3 class="text_rating {% if movie.rating < 50 %} bad_rat {% elif 50 < movie.rating and movie.rating < 80  %} medium_rat
+            {% else %} good_rat {% endif %}">
+                {{ movie.rating|float_rating}}</h3><br><br>
+            <h3> О фильме </h3>
+            <div><h3 class="text_description">Бюджет</h3> <span class="sp">{{ movie.currency_unicode }}</span></div>
+            <div><h3 class="text_description">Год выхода</h3> <span class="sp">{{ movie.year }}</span></div>
+            <div><h3 class="text_description">Режиссер</h3> <span class="sp">{{ movie.director.full_name}}</span></div>
+            <div><h3 class="text_description">Жанр</h3> <span class="sp">{% for genre in movie.genre.all%}
+                <a class="genre" href="{% url 'filter-detail' genre.name %}">
+                    {% if genre == movie.genre.all.last %} {{ genre }} {% else %} {{ genre }}, {% endif %}</a>{% endfor%}</span></div>
+            <div><h3 class="text_description">Сценарист</h3> <span class="sp">...</span></div>
+            <div><h3 class="text_description">Cборы в мире</h3> <span class="sp">...</span></div>
+            <div class="artist">В главных ролях
+                <ul>
+                    {% for act in movie.artist.all %}
+                    <li><a class="username" href="{% url 'artist-detail' artist=act.id %}">{{act.full_name}}</a></li>
+                    <br>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="trailer">
+
+            {% video movie.trailer '300x200' %}
+        </div>
+    </div>
+    <br>
+<h2>Рецензия зрителей</h2>
+    {% if view.request.user.is_anonymous %}
+    <a href="{% url 'login-detail' %}">
+    {% else %}
+    <a href="{% url 'review-detail' movie.id %}">
+        {% endif %}
+        <button class="butt bu" type="submit"> + Написать рецензию</button>
+    </a>
+        <br><br>
+        {% for fed in reviews %}
+    <section class="comment">
+        <img class="img_user" src="/uploads/my_data/PlaceholderImageMale.jpg" width="50px" height="50px">
+        <div>
+        <span class="user">{{ fed.user }}</span>
+        <span class="date">{{ fed.date }}</span>
+            </div>
+        <hr>
+        <p class="rating">Рейтинг к фильму: <b>{{ fed.rating }}</b></p>
+        <p class="text">{{ fed.feedback }}</p>
+    </section>
+        {% endfor %}
+
+
+
+
+
+{% endblock %}

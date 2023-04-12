@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block static %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+<nav>
+    <ul class="block">
+        <li class="name_navbar navulli">Жанр
+            <ul>
+                {% for genre in genres %}
+                <li><a class="genres" href="{% url 'filter-detail' genre.name %}">{{ genre.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <form class="f navulli" action="{% url 'search-detail' %}" method="get">
+            <input class="i" name="search" type="text" placeholder="Введите название..." required />
+            <button class="b" type="submit"></button>
+                </form>
+        </li>
+               <div class="usermenu">
+        {% if request.user.is_authenticated %}
+        <a href="#"><li class="userexit navulli"> {{ user.username }} </li></a>
+        <li class=" navulli"> |</li>
+        <a href="{% url 'logout' %}"><li class="log navulli">Выйти</li></a>
+        {% else %}
+        <a href="{% url 'register-detail' %}"><li class="reg navulli" >Регистрация </li></a>
+        <li class=" navulli"> |</li>
+        <a href="{% url 'login-detail'%}"><li class="log navulli">Войти</li></a>
+        {% endif %}
+            </div>
+    </ul>
+</nav>
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

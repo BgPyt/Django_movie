@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/paginate_hover.css' %}">
+<a href="?page=1"><li class="last_first">Первая страница</li></a>
+{% for p in paginator.page_range %}
+{% if page_obj.number == p %}
+<li style="background-color: #4a6074" class="paginate">{{ p }}</li>
+{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+<a href="?page={{ p }}"><li class="paginate">{{ p }}</li></a>
+{% endif %}
+{% endfor %}
+<a href="?page={{ last_page }}"><li class="last_first">Последняя страница</li></a>
