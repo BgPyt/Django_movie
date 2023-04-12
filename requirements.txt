@@ -1,0 +1,6 @@
+Django==4.1.7
+django_debug_toolbar==3.8.1
+django-embed-video==1.4.8
+django-extensions==3.2.1
+django-simple-captcha==0.5.17
+djangorestframework==3.14.0
