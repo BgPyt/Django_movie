@@ -91,7 +91,7 @@ DATABASES = {
         'PASSWORD': '****',
         'HOST': '',
         'PORT': '****',
-        'TEST': {'NAME': 'name db'}
+        'TEST': {'NAME': '***'} # имя бд использующая в тесте
 
     }
 }
