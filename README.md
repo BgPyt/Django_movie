@@ -14,7 +14,7 @@
 <p><code>pip install -r requirements.txt</code></li>
 <br>
 <li>Привязка к базе данных (Рекомендуется Postgresql). Ознакомиться можно <a href="https://docs.djangoproject.com/en/4.1/ref/databases/">тут</a>
-<p><code>Директория movie/setting.py и находим константу DATABASES и вместо *** подставить свои параметры.<p>Перед этим создать БД при помощи sql - " CREATE DATABASE <dbname> CHARACTER SET utf8; " </code></li>
+<p><code>Директория movie/setting.py и находим константу DATABASES и вместо *** подставить свои параметры.<p>Перед этим создать БД при помощи sql - " CREATE DATABASE <dbname> CHARACTER SET utf8; " </code> <p>Если у вас <strong>Postgresql</strong> установить драйвер <code>pip install psycopg2</code></li>
 <li>Выполняем миграции в бд -
 <p><code>python manage.py makemigrations
 <p>python manage.py migrate</code></li>
